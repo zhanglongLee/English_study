@@ -18,6 +18,7 @@
 </template>
 
 <style lang="scss">
+@import url(assets/css/reset.css);
 body,html{
   box-sizing: content-box;
 }
@@ -37,22 +38,22 @@ body,html{
     min-width: 960px;
     margin: 0 auto;
   }
-  .qqpc {
-    background: url(https://sqimg.qq.com/qq_product_operations/im/imbanner/20180201/pcqq_bg.jpg)
-      no-repeat center center;
-    background-size: cover;
-  }
+  // .qqpc {
+  //   background: url(https://sqimg.qq.com/qq_product_operations/im/imbanner/20180201/pcqq_bg.jpg)
+  //     no-repeat center center;
+  //   background-size: cover;
+  // }
   .title {
+    display: flex;
+    justify-content: center;
     width: 100%;
     height: 75px;
     background-color: transparent;
     font-size: 0;
-
-    ul,li {
-      float: left;
-      list-style: none;
+    
+    ul{
+      display: flex;
     }
-
     .item {
       height: 75px;
       line-height: 75px;
@@ -69,7 +70,6 @@ body,html{
       background: transparent
         url(//sqimg.qq.com/qq_product_operations/im/qqlogo/imlogo_b.png) no-repeat
         left 15px;
-      margin-left: 300px;
     }
 
     .item:hover {

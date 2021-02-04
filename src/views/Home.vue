@@ -1,34 +1,39 @@
 <template>
   <div class="home">
-    <div class="content-item">内容1</div>
-    <div
-      class="activebg fisrtbg"
-      id="pic1"
-      v-bind:style="{
-        'background-position-x': positionX,
-        'background-position-y': positionY1 + 'px'
-      }"
-    ></div>
-    <div class="content-item">内容2</div>
-    <div
-      class="activebg secondbg"
-      id="pic2"
-      v-bind:style="{
-        'background-position-x': positionX,
-        'background-position-y': positionY2 + 'px'
-      }"
-    ></div>
-    <div class="content-item">内容3</div>
-    <div
-      class="activebg thirdbg"
-      id="pic3"
-      v-bind:style="{
-        'background-position-x': positionX,
-        'background-position-y': positionY3 + 'px'
-      }"
-    ></div>
-    <div class="content-item">内容4</div>
-    <div class="foot">foot</div>
+    <div class="banner">
+      <img src="../assets/images/test.jpg" alt="">
+    </div>
+    <div class="home-content">
+      <div class="content-item">内容1</div>
+      <div
+        class="activebg fisrtbg"
+        id="pic1"
+        v-bind:style="{
+          'background-position-x': positionX,
+          'background-position-y': positionY1 + 'px'
+        }"
+      ></div>
+      <div class="content-item">内容2</div>
+      <div
+        class="activebg secondbg"
+        id="pic2"
+        v-bind:style="{
+          'background-position-x': positionX,
+          'background-position-y': positionY2 + 'px'
+        }"
+      ></div>
+      <div class="content-item">内容3</div>
+      <div
+        class="activebg thirdbg"
+        id="pic3"
+        v-bind:style="{
+          'background-position-x': positionX,
+          'background-position-y': positionY3 + 'px'
+        }"
+      ></div>
+      <div class="content-item">内容4</div>
+      <div class="foot">foot</div>
+    </div>
   </div>
 </template>
 
@@ -79,6 +84,17 @@ export default {
 .home {
   height: 100%;
 }
+.banner{
+  width: 100%;
+  height: 624px;
+  background: #bfc;
+}
+.banner > img{
+  width: 100%;
+}
+.home-content{
+  width: 100%;
+}
 .content-item {
   background-color: #fff;
   width: 100%;
@@ -94,16 +110,17 @@ export default {
   background: #fff;
   background-attachment: fixed;
   background-position: center 0;
+  background-size: 100% 100%; 
   background-repeat: no-repeat;
 }
 .fisrtbg {
-  background-image: url(https://sqimg.qq.com/qq_product_operations/im/2015/fisrtbg.jpg);
+  background-image: url(../assets/images/banner1.jpg);
 }
 .secondbg {
-  background-image: url(https://sqimg.qq.com/qq_product_operations/im/2015/update/avd.jpg);
+  background-image: url(../assets/images/banner2.jpg);
 }
 .thirdbg {
-  background-image: url(https://sqimg.qq.com/qq_product_operations/im/2015/blog.jpg);
+  background-image: url(../assets/images/banner3.jpg);
 }
 .foot {
   background-color: black;
