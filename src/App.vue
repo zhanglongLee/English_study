@@ -1,45 +1,27 @@
 <template>
   <div class="container">
-    <header>
-      <div class="title">
-        <ul>
-          <!-- <li class="logo">
-            <img src="./assets/images/logo.png" alt="logo">
-          </li> -->
-          <li class="item">首页</li>
-          <li class="item">我要翻译</li>
-          <li class="item">文章专区</li>
-          <li class="item">听力专区</li>
-        </ul>
-        <div class="information-wrap">
-          <div class="search">
-            <input type="text" placeholder="请搜索">
-            <div class="search-btn">
-              <i></i>
-            </div>
-          </div>
-          <span class="login">登录/注册</span>
-          <!-- <div class="content">
-            <div class="information">
-              <img src="./assets/images/logo.png" alt="头像">
-            </div>
-            <div class="logout-wrap">
-              <div class="userName">Lee</div>
-              <div class="personal-center">个人中心</div>
-              <div class="collection">我的收藏</div>
-              <div class="logout">退出登录</div>
-            </div>
-          </div> -->
-        </div>
-      </div>
-    </header>
+    <top-page></top-page>
     <section>
       <router-view/>
     </section>
     <footer></footer>
   </div>
 </template>
+<script>
+  import topPage from "./components/topPage";
+  export default {
+    name: "Translate",
+    components:{
+      'top-page':topPage
+    },
+    data(){
+      return{
 
+      }
+    },
+
+  }
+</script>
 <style lang="scss">
 @import url(assets/css/reset.css);
 *{
@@ -49,49 +31,6 @@
 
   width: 100%;
   height: 100%;
-
-  header {
-    position: fixed;
-    z-index: 9999999;
-    top: 0px;
-    left: 0px;
-    width: 100%;
-    height: 54px;
-    max-width: 1900px;
-    min-width: 960px;
-    margin: 0 auto;
-    background: #3D444C;
-  }
-
-  .title {
-    display: flex;
-    justify-content: space-around;
-    width: 100%;
-    height: 100%;
-    background-color: transparent;
-    font-size: 0;
-    
-    ul{
-      display: flex;
-    }
-    .item {
-      height: 54px;
-      line-height: 54px;
-      padding: 0 10px;
-      font-size: 16px;
-      color: #ccc;
-      cursor: pointer;
-    }
-
-    .logo img {
-      height: 75px;
-    }
-
-    .item:hover {
-      color: #fff;
-      background: rgb(49, 54, 61);
-    }
-
     .information-wrap{
       display: flex;
       align-items: center;
@@ -198,7 +137,6 @@
       
       }
     }
-  }
 }
 
 </style>
