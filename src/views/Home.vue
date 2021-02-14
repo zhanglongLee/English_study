@@ -1,8 +1,12 @@
 <template>
   <div class="home">
     <div class="banner">
-      <img src="../assets/images/test.jpg" alt="">
+      <swiper class="banner-container" :options="swiperOption" ref="mySwiper">
+        <swiper-slide><img class="banner-img" src="../assets/images/test.jpg" alt=""></swiper-slide>
+      </swiper>
     </div>
+
+    <!--视差滚动-->
     <div class="home-content">
       <div class="content-item">内容1</div>
       <div
@@ -32,16 +36,43 @@
         }"
       ></div>
       <div class="content-item">内容4</div>
+
+    <!--底部-->
       <div class="foot">foot</div>
     </div>
   </div>
 </template>
 
 <script>
+  // 引入插件
+  import { swiper, swiperSlide } from "vue-awesome-swiper";
+  import "swiper/dist/css/swiper.css";
 export default {
   name: "home",
+  components: {
+    swiper,
+    swiperSlide
+  },
   data() {
     return {
+      swiperOption: {
+        loop: true,
+        autoplay: {
+          delay: 3000,
+          stopOnLastSlide: false,
+          disableOnInteraction: false
+        },
+        // 显示分页
+        pagination: {
+          el: ".swiper-pagination",
+          clickable: true //允许分页点击跳转
+        },
+        // 设置点击箭头
+        navigation: {
+          nextEl: ".swiper-button-next",
+          prevEl: ".swiper-button-prev"
+        }
+      },
       ratio: 0.05,
       positionX: "50%",
       positionY1: 30,
@@ -52,7 +83,11 @@ export default {
       Y3: 0,
     };
   },
-  components: {},
+  computed: {
+    swiper() {
+      return this.$refs.mySwiper.swiper;
+    }
+  },
   mounted() {
     window.addEventListener("scroll", this.handleScroll);
     window.onload = () => {
@@ -76,21 +111,26 @@ export default {
 
     }
   }
-};  
+};
 </script>
 
-<style>
+<style scoped>
 
 .home {
   height: 100%;
 }
 .banner{
   width: 100%;
-  height: 624px;
+  height: 500px;
   background: #bfc;
 }
-.banner > img{
+.banner-container {
   width: 100%;
+  height: 100%;
+}
+.banner img{
+  width: 100%;
+  height: 100%;
 }
 .home-content{
   width: 100%;
@@ -110,7 +150,7 @@ export default {
   background: #fff;
   background-attachment: fixed;
   background-position: center 0;
-  background-size: 100% 100%; 
+  background-size: 100% 100%;
   background-repeat: no-repeat;
 }
 .fisrtbg {
