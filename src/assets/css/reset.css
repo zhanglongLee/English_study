@@ -74,7 +74,8 @@
  html{
    overflow-y: scroll;
  }
-  
+ input,button,select,textarea{outline:none}
+ textarea{resize:none}
  /*清除浮动*/
  .u-clearfix:before,
  .u-clearfix:after{
