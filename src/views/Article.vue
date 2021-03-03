@@ -2,11 +2,56 @@
   <div class="container">
     <div class="content">
       <div class="content-top">
-        <div class="latest"></div>
-        <div class="recommend"></div>
+        <div class="latest shadow">
+          <div class="big-img-content">
+            <div class="big-img">
+              <img :src="require('@/assets/images/article/1.png')" />
+            </div>
+            <div class="big-img-des">
+              <h3>Curry hits back after sharing nude photo</h3>
+              <p>
+                Ayesha Curry is setting the record straight after fans allege
+                she's a hypocrite for sharing a nude photo to social media.
+              </p>
+            </div>
+          </div>
+          <div class="small-content">
+            <div class="small-img">
+              <img :src="require('@/assets/images/article/1.png')" />
+              <div class="small-img-title">
+                Meghan and Harry make surprise appearance
+              </div>
+            </div>
+            <div class="small-img">
+              <img :src="require('@/assets/images/article/1.png')" />
+              <div class="small-img-title">
+                Meghan and Harry make surprise appearance
+              </div>
+            </div>
+            <div class="small-img">
+              <img :src="require('@/assets/images/article/1.png')" />
+              <div class="small-img-title">
+                Meghan and Harry make surprise appearance
+              </div>
+            </div>
+            <div class="small-img">
+              <img :src="require('@/assets/images/article/1.png')" />
+              <div class="small-img-title">
+                Meghan and Harry make surprise appearance
+              </div>
+            </div>
+            <div class="small-img">
+              <img :src="require('@/assets/images/article/1.png')" />
+              <div class="small-img-title">
+                Meghan and Harry make surprise appearance
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="recommend shadow"></div>
       </div>
       <div class="article-list">
-        <div class="article" v-for="item in 10" :key="item">
+        <div v-for="item in 10" :key="item" class="article shadow">
           <div class="pic"></div>
           <div class="main">
             <div class="type">News</div>
@@ -17,72 +62,76 @@
       </div>
       <div class="comment">
         <comment
-          commentWidth="100%"
+          comment-width="100%"
+          :comment-list="commentList"
+          :comment-num="commentNum"
+          :label="label"
+          :avatar="avatar"
+          :placeholder="placeholder"
+          :min-rows="minRows"
+          :max-rows="maxRows"
           @doSend="doSend($event)"
           @doChidSend="doChidSend(arguments)"
-          :commentList="commentList"
-          :commentNum="commentNum"
-          :label="label"
-          :avatar="avatar" 
-          :placeholder="placeholder"
-          :minRows="minRows"
-          :maxRows="maxRows"
-        ></comment>
+        />
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import comment from "../components/Comment";
+import comment from '../components/common/Comment'
 export default {
-  name: "Article",
+  name: 'Article',
   components: {
     comment
   },
   data() {
     return {
-      label: "博主",
-      placeholder: "说点什么吧",
+      label: '博主',
+      placeholder: '说点什么吧',
       minRows: 4,
       maxRows: 4,
       commentNum: 2,
-      avatar: require("@/components/img/icon/avtar.png"),
+      avatar: require('@/components/common/img/icon/avtar.png'),
       commentList: [
         {
           id: 1,
           commentUser: {
             id: 1,
-            nickName: "小胖",
-            avatar:require("@/components/img/icon/xiaopang.jpg")
+            nickName: '小胖',
+            avatar: require('@/components/common/img/icon/xiaopang.jpg')
           },
-          content:"小肥你好呀[太开心][太开心]~",
-          createDate: "2019-9-23 17:36:02",
+          content: '小肥你好呀[太开心][太开心]~',
+          createDate: '2019-9-23 17:36:02',
           childrenList: [
             {
               id: 2,
               commentUser: {
                 id: 2,
-                nickName: "小肥",
-                avatar:require("@/components/img/icon/xiaofei.jpg")
+                nickName: '小肥',
+                avatar: require('@/components/common/img/icon/xiaofei.jpg')
               },
               targetUser: {
                 id: 1,
-                nickName: "小胖",
-                avatar:require("@/components/img/icon/xiaopang.jpg")
+                nickName: '小胖',
+                avatar: require('@/components/common/img/icon/xiaopang.jpg')
               },
-              content: "小胖你好呀[太开心][太开心]~很高兴认识你",
-              createDate: "2019-9-23 17:45:26"
+              content: '小胖你好呀[太开心][太开心]~很高兴认识你',
+              createDate: '2019-9-23 17:45:26'
             }
           ]
         }
       ]
-    };
+    }
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>
+.shadow {
+  background: #fff;
+  box-shadow: 5px 5px 20px #e4e3e3;
+}
 .container {
   position: relative;
   width: 100%;
@@ -97,38 +146,120 @@ export default {
       display: flex;
       justify-content: space-between;
       width: 100%;
-      height: 400px;
 
       .latest {
         width: 60%;
-        background: red;
+        .big-img-content {
+          display: flex;
+          width: 100%;
+          height: 215px;
+          background: #464e56;
+          cursor: pointer;
+
+          &:hover {
+            opacity: 0.9;
+          }
+
+          .big-img {
+            width: 428px;
+            img {
+              width: 100%;
+              height: 100%;
+            }
+          }
+
+          .big-img-des {
+            width: calc(100% - 430px);
+            padding: 30px;
+            font-size: 13px;
+            color: #fff;
+            h3 {
+              width: 90%;
+              line-height: 18px;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              display: -webkit-box;
+              -webkit-line-clamp: 2;
+              -webkit-box-orient: vertical;
+              font-size: 18px;
+              font-weight: bold;
+              margin-bottom: 10px;
+              &:hover {
+                text-decoration: underline;
+              }
+            }
+            p {
+              line-height: 14px;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              display: -webkit-box;
+              -webkit-line-clamp: 3;
+              -webkit-box-orient: vertical;
+            }
+          }
+        }
+        .small-content {
+          display: flex;
+          justify-content: space-between;
+          margin-top: 10px;
+          .small-img {
+            width: 135px;
+            cursor: pointer;
+            padding-bottom: 10px;
+            &:hover {
+              opacity: 0.9;
+              .small-img-title {
+                color: rgb(0, 120, 255);
+              }
+            }
+            img {
+              width: 100%;
+              height: 62px;
+            }
+            .small-img-title {
+              color: rgb(2, 14, 101);
+              margin-top: 4px;
+              font-size: 12px;
+              line-height: 14px;
+              padding: 0 4px;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              display: -webkit-box;
+              -webkit-line-clamp: 3;
+              -webkit-box-orient: vertical;
+            }
+          }
+        }
       }
       .recommend {
         // position: fixed;
         // top: 74px;
         // right: 40px;
         width: 36%;
-        height: 400px;
-        background: burlywood;
       }
     }
     .article-list {
       width: 60%;
       .article {
         width: 100%;
-        height: 150px;
+        // height: 150px;
+        margin: 10px 0;
         display: flex;
         align-items: center;
+        transition: all 0.3s;
+
+        &:hover {
+          cursor: pointer;
+          transform: scale(1.03);
+        }
         .pic {
           width: 220px;
           height: 120px;
           margin-right: 20px;
-          background: #4395ff;
         }
         .main {
           flex: 1;
           height: 120px;
-          background: blue;
         }
       }
     }

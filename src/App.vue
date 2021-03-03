@@ -1,32 +1,46 @@
 <template>
   <div class="container">
-    <top-page></top-page>
+    <top-page v-if="!isNotFound" />
     <section>
-      <router-view/>
+      <router-view />
     </section>
     <footer></footer>
   </div>
 </template>
 <script>
-  import topPage from "./components/topPage";
-  export default {
-    name: "Translate",
-    components:{
-      'top-page':topPage
-    },
-    data(){
-      return{
-
-      }
-    },
-
+import topPage from './components/common/topPage'
+export default {
+  name: 'Translate',
+  components: {
+    'top-page': topPage
+  },
+  data() {
+    return {
+      isNotFound: false
+    }
+  },
+  watch: {
+    $route: {
+      handler: function(val, oldVal) {
+        this.isNotFound = val.meta.title === '404页面'
+      },
+      // 深度观察监听
+      deep: true
+    }
+  },
+  mounted() {
+    this.isNotFound = this.$route.meta.title === '404页面'
   }
+
+}
 </script>
 <style lang="scss">
 @import url(assets/css/reset.css);
+@import url(assets/css/iconfont.css);
 *{
   box-sizing: border-box;
 }
+
 .container{
 
   width: 100%;
@@ -51,12 +65,12 @@
           border: none;
           outline: none;
         }
-        
+
         .search-btn{
           flex: 1;
           display: flex;
           justify-content: center;
-          align-items: center;  
+          align-items: center;
           background: #31363e;
           cursor: pointer;
 
@@ -68,7 +82,7 @@
           }
         }
       }
-      
+
       .login{
         font-size: 16px;
         color: #ccc;
@@ -111,7 +125,7 @@
           padding: 0 10px;
           background: #31363e;
           transition: all .2s linear;
-          
+
           div{
             width: 100%;
             line-height: 30px;
@@ -134,7 +148,7 @@
         .logout-wrap:hover{
           height: 121px;
         }
-      
+
       }
     }
 }

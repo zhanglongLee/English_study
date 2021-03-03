@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Translate from '../views/Translate.vue'
 import Article from '../views/Article.vue'
+import NotFound from '../views/NotFound.vue'
 
 Vue.use(VueRouter)
 
@@ -11,26 +12,33 @@ const routes = [
     path: '/',
     name: 'Home',
     component: Home,
-    meta:{
-      title:"英语学习网站"
+    meta: {
+      title: '英语学习网站'
     }
   },
   {
     path: '/translate',
     name: 'Translate',
     component: Translate,
-    meta:{
-      title:"我要翻译"
+    meta: {
+      title: '我要翻译'
     }
   },
   {
     path: '/article',
     name: 'Article',
     component: Article,
-    meta:{
-      title:"我要翻译"
+    meta: {
+      title: '文章专区'
     }
   },
+  {
+    path: '*',
+    component: NotFound,
+    meta: {
+      title: '404页面'
+    }
+  }
   // {
   //   path: '/about',
   //   name: 'About',
@@ -42,7 +50,7 @@ const routes = [
 ]
 
 const router = new VueRouter({
-  mode: 'history',
+  mode: 'hash',
   base: process.env.BASE_URL,
   routes
 })

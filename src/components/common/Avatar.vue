@@ -6,21 +6,20 @@
   </div>
 </template>
 
-
 <script>
 export default {
   props: {
     avatar: {
       type: String,
-      default: ""
+      default: ''
     }
   },
   data() {
     return {
-      comment: ""
-    };
+      comment: ''
+    }
   }
-};
+}
 </script>
 
 <style type="text/css" scoped>

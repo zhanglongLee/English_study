@@ -1,18 +1,17 @@
 <template>
   <div class="hbl-fa">
     <div class="hbl-comm">
-      <div class="comment-avatar" v-if="showAvatar">
-        <avatar :avatar="avatar"></avatar>
+      <div v-if="showAvatar" class="comment-avatar">
+        <avatar :avatar="avatar" />
       </div>
       <div class="comment" :style="{ width: commentWidth }">
         <el-input
-          @focus="showButton(0)"
+          v-model="textareaMap[0]"
           type="textarea"
           :autosize="{ minRows: minRows, maxRows: maxRows }"
           :placeholder="placeholder"
-          v-model="textareaMap[0]"
-        >
-        </el-input>
+          @focus="showButton(0)"
+        />
 
         <div v-if="buttonMap[0]" class="hbl-owo">
           <div
@@ -26,9 +25,9 @@
             <div class="OwO-body">
               <ul class="OwO-items OwO-items-show">
                 <li
-                  class="OwO-item"
                   v-for="(oitem, index) in OwOlist"
                   :key="'oitem' + index"
+                  class="OwO-item"
                   @click="choseEmoji(0, oitem.title)"
                 >
                   <img :src="require('./img/face/' + oitem.url)" alt="" />
@@ -39,7 +38,7 @@
 
           <div class="publish publish-btn">
             <button class="btn" @click="doSend()">发送</button>
-            <button @click="cancel(0)" class="btn btn-cancel">取消</button>
+            <button class="btn btn-cancel" @click="cancel(0)">取消</button>
           </div>
         </div>
       </div>
@@ -52,13 +51,13 @@
       </div>
     </div>
 
-    <div v-for="(item, index) in commentList" class="hbl-child" :key="index">
+    <div v-for="(item, index) in commentList" :key="index" class="hbl-child">
       <div class="reply"></div>
       <div class="content">
         <div class="comment-f">
           <avatar
             :avatar="item.commentUser.avatar ? item.commentUser.avatar : avatar"
-          ></avatar>
+          />
         </div>
 
         <div class="comment-f">
@@ -83,25 +82,23 @@
             <div>
               <img src="./img/icon/reply.png" class="icon-reply" /><font
                 class="icon-reply icon-hf"
-                >回复</font
-              >
+              >回复</font>
             </div>
           </div>
 
           <div
+            v-if="replyMap[item.id]"
             class="comment"
             :style="{ width: commentWidth }"
-            v-if="replyMap[item.id]"
             :showAvatar="showAvatar"
           >
             <el-input
-              @focus="showButton(item.id)"
+              v-model="textareaMap[item.id]"
               type="textarea"
               :autosize="{ minRows: minRows, maxRows: maxRows }"
               :placeholder="placeholder"
-              v-model="textareaMap[item.id]"
-            >
-            </el-input>
+              @focus="showButton(item.id)"
+            />
 
             <div v-if="buttonMap[item.id]" class="hbl-owo">
               <div
@@ -115,9 +112,9 @@
                 <div class="OwO-body">
                   <ul class="OwO-items OwO-items-show">
                     <li
+                      v-for="(oitem, oindex) in OwOlist"
+                      :key="'oitem' + oindex"
                       class="OwO-item"
-                      v-for="(oitem, index) in OwOlist"
-                      :key="'oitem' + index"
                       @click="choseEmoji(item.id, oitem.title)"
                     >
                       <img :src="require('./img/face/' + oitem.url)" alt="" />
@@ -133,7 +130,7 @@
                 >
                   发送
                 </button>
-                <button @click="cancel(item.id)" class="btn btn-cancel">
+                <button class="btn btn-cancel" @click="cancel(item.id)">
                   取消
                 </button>
               </div>
@@ -142,7 +139,7 @@
         </div>
       </div>
 
-      <div class="children" v-for="(ritem, jndex) in item.childrenList" :key="jndex">
+      <div v-for="(ritem, jndex) in item.childrenList" :key="jndex" class="children">
         <div class="reply"></div>
         <div class="content">
           <div class="comment-f">
@@ -150,7 +147,7 @@
               :avatar="
                 ritem.commentUser.avatar ? ritem.commentUser.avatar : avatar
               "
-            ></avatar>
+            />
           </div>
 
           <div class="comment-f">
@@ -182,25 +179,23 @@
               <div>
                 <img src="./img/icon/reply.png" class="icon-reply" /><font
                   class="icon-reply icon-hf"
-                  >回复</font
-                >
+                >回复</font>
               </div>
             </div>
 
             <div
+              v-if="replyMap[ritem.id]"
               class="comment"
               :style="{ width: commentWidth }"
-              v-if="replyMap[ritem.id]"
               :showAvatar="showAvatar"
             >
               <el-input
-                @focus="showButton(ritem.id)"
+                v-model="textareaMap[ritem.id]"
                 type="textarea"
                 :autosize="{ minRows: minRows, maxRows: maxRows }"
                 :placeholder="placeholder"
-                v-model="textareaMap[ritem.id]"
-              >
-              </el-input>
+                @focus="showButton(ritem.id)"
+              />
 
               <div v-if="buttonMap[ritem.id]" class="hbl-owo">
                 <div
@@ -214,9 +209,9 @@
                   <div class="OwO-body">
                     <ul class="OwO-items OwO-items-show">
                       <li
+                        v-for="(oitem, oindex) in OwOlist"
+                        :key="'oitem' + oindex"
                         class="OwO-item"
-                        v-for="(oitem, index) in OwOlist"
-                        :key="'oitem' + index"
                         @click="choseEmoji(ritem.id, oitem.title)"
                       >
                         <img :src="require('./img/face/' + oitem.url)" alt="" />
@@ -232,7 +227,7 @@
                   >
                     发送
                   </button>
-                  <button @click="cancel(ritem.id)" class="btn btn-cancel">
+                  <button class="btn btn-cancel" @click="cancel(ritem.id)">
                     取消
                   </button>
                 </div>
@@ -246,12 +241,15 @@
 </template>
 
 <script>
-import avatar from "./Avatar.vue";
+import avatar from './Avatar.vue'
 export default {
+  components: {
+    avatar
+  },
   props: {
     emojiWidth: {
       type: String,
-      default: "560px"
+      default: '560px'
     },
     showAvatar: {
       type: Boolean,
@@ -259,11 +257,11 @@ export default {
     },
     avatar: {
       type: String,
-      default: ""
+      default: ''
     },
     placeholder: {
       type: String,
-      default: "在此输入评论内容..."
+      default: '在此输入评论内容...'
     },
     minRows: {
       type: Number,
@@ -283,7 +281,7 @@ export default {
     },
     label: {
       type: String,
-      default: "作者"
+      default: '作者'
     },
     commentList: {
       type: Array,
@@ -292,29 +290,29 @@ export default {
           id: 1,
           commentUser: {
             id: 1,
-            nickName: "花非花",
+            nickName: '花非花',
             avatar:
-              "http://qzapp.qlogo.cn/qzapp/101483738/6637A2B6611592A44A7699D14E13F7F7/50"
+              'http://qzapp.qlogo.cn/qzapp/101483738/6637A2B6611592A44A7699D14E13F7F7/50'
           },
           content:
             "<a style='text-decoration:none;color: #409eff ' href='https://blog.csdn.net/qq_40942490?spm=1000.2115.3001.5113'>我的CSDN博客地址</a>[害羞][害羞][害羞]<br/>",
-          createDate: "2019-9-23 17:36:02",
+          createDate: '2019-9-23 17:36:02',
           childrenList: [
             {
               id: 2,
               commentUser: {
                 id: 2,
-                nickName: "坏菠萝",
-                avatar: ""
+                nickName: '坏菠萝',
+                avatar: ''
               },
               targetUser: {
                 id: 1,
-                nickName: "花非花",
+                nickName: '花非花',
                 avatar:
-                  "http://qzapp.qlogo.cn/qzapp/101483738/6637A2B6611592A44A7699D14E13F7F7/50"
+                  'http://qzapp.qlogo.cn/qzapp/101483738/6637A2B6611592A44A7699D14E13F7F7/50'
               },
-              content: "真的就很棒！很Nice!",
-              createDate: "2019-9-23 17:45:26"
+              content: '真的就很棒！很Nice!',
+              createDate: '2019-9-23 17:45:26'
             }
           ]
         }
@@ -322,7 +320,7 @@ export default {
     },
     commentWidth: {
       type: String,
-      default: "80%"
+      default: '80%'
     }
   },
   data() {
@@ -332,151 +330,80 @@ export default {
       pBodyMap: [],
       textareaMap: [],
       OwOlist: [
-        //表情包和表情路径
-        { title: "微笑", url: "weixiao.gif" },
-        { title: "嘻嘻", url: "xixi.gif" },
-        { title: "哈哈", url: "haha.gif" },
-        { title: "可爱", url: "keai.gif" },
-        { title: "可怜", url: "kelian.gif" },
-        { title: "挖鼻", url: "wabi.gif" },
-        { title: "吃惊", url: "chijing.gif" },
-        { title: "害羞", url: "haixiu.gif" },
-        { title: "挤眼", url: "jiyan.gif" },
-        { title: "闭嘴", url: "bizui.gif" },
-        { title: "鄙视", url: "bishi.gif" },
-        { title: "爱你", url: "aini.gif" },
-        { title: "泪", url: "lei.gif" },
-        { title: "偷笑", url: "touxiao.gif" },
-        { title: "亲亲", url: "qinqin.gif" },
-        { title: "生病", url: "shengbing.gif" },
-        { title: "太开心", url: "taikaixin.gif" },
-        { title: "白眼", url: "baiyan.gif" },
-        { title: "右哼哼", url: "youhengheng.gif" },
-        { title: "左哼哼", url: "zuohengheng.gif" },
-        { title: "嘘", url: "xu.gif" },
-        { title: "衰", url: "shuai.gif" },
-        { title: "吐", url: "tu.gif" },
-        { title: "哈欠", url: "haqian.gif" },
-        { title: "抱抱", url: "baobao.gif" },
-        { title: "怒", url: "nu.gif" },
-        { title: "疑问", url: "yiwen.gif" },
-        { title: "馋嘴", url: "chanzui.gif" },
-        { title: "拜拜", url: "baibai.gif" },
-        { title: "思考", url: "sikao.gif" },
-        { title: "汗", url: "han.gif" },
-        { title: "困", url: "kun.gif" },
-        { title: "睡", url: "shui.gif" },
-        { title: "钱", url: "qian.gif" },
-        { title: "失望", url: "shiwang.gif" },
-        { title: "酷", url: "ku.gif" },
-        { title: "色", url: "se.gif" },
-        { title: "哼", url: "heng.gif" },
-        { title: "鼓掌", url: "guzhang.gif" },
-        { title: "晕", url: "yun.gif" },
-        { title: "悲伤", url: "beishang.gif" },
-        { title: "抓狂", url: "zhuakuang.gif" },
-        { title: "黑线", url: "heixian.gif" },
-        { title: "阴险", url: "yinxian.gif" },
-        { title: "怒骂", url: "numa.gif" },
-        { title: "互粉", url: "hufen.gif" },
-        { title: "书呆子", url: "shudaizi.gif" },
-        { title: "愤怒", url: "fennu.gif" },
-        { title: "感冒", url: "ganmao.gif" },
-        { title: "心", url: "xin.gif" },
-        { title: "伤心", url: "shangxin.gif" },
-        { title: "猪", url: "zhu.gif" },
-        { title: "熊猫", url: "xiongmao.gif" },
-        { title: "兔子", url: "tuzi.gif" },
-        { title: "喔克", url: "ok.gif" },
-        { title: "耶", url: "ye.gif" },
-        { title: "棒棒", url: "good.gif" },
-        { title: "不", url: "no.gif" },
-        { title: "赞", url: "zan.gif" },
-        { title: "来", url: "lai.gif" },
-        { title: "弱", url: "ruo.gif" },
-        { title: "草泥马", url: "caonima.gif" },
-        { title: "神马", url: "shenma.gif" },
-        { title: "囧", url: "jiong.gif" },
-        { title: "浮云", url: "fuyun.gif" },
-        { title: "给力", url: "geili.gif" },
-        { title: "围观", url: "weiguan.gif" },
-        { title: "威武", url: "weiwu.gif" },
-        { title: "话筒", url: "huatong.gif" },
-        { title: "蜡烛", url: "lazhu.gif" },
-        { title: "蛋糕", url: "dangao.gif" },
-        { title: "发红包", url: "fahongbao.gif" }
+        // 表情包和表情路径
+        { title: '微笑', url: 'weixiao.gif' },
+        { title: '嘻嘻', url: 'xixi.gif' },
+        { title: '哈哈', url: 'haha.gif' },
+        { title: '可爱', url: 'keai.gif' },
+        { title: '可怜', url: 'kelian.gif' },
+        { title: '挖鼻', url: 'wabi.gif' },
+        { title: '吃惊', url: 'chijing.gif' },
+        { title: '害羞', url: 'haixiu.gif' },
+        { title: '挤眼', url: 'jiyan.gif' },
+        { title: '闭嘴', url: 'bizui.gif' },
+        { title: '鄙视', url: 'bishi.gif' },
+        { title: '爱你', url: 'aini.gif' },
+        { title: '泪', url: 'lei.gif' },
+        { title: '偷笑', url: 'touxiao.gif' },
+        { title: '亲亲', url: 'qinqin.gif' },
+        { title: '生病', url: 'shengbing.gif' },
+        { title: '太开心', url: 'taikaixin.gif' },
+        { title: '白眼', url: 'baiyan.gif' },
+        { title: '右哼哼', url: 'youhengheng.gif' },
+        { title: '左哼哼', url: 'zuohengheng.gif' },
+        { title: '嘘', url: 'xu.gif' },
+        { title: '衰', url: 'shuai.gif' },
+        { title: '吐', url: 'tu.gif' },
+        { title: '哈欠', url: 'haqian.gif' },
+        { title: '抱抱', url: 'baobao.gif' },
+        { title: '怒', url: 'nu.gif' },
+        { title: '疑问', url: 'yiwen.gif' },
+        { title: '馋嘴', url: 'chanzui.gif' },
+        { title: '拜拜', url: 'baibai.gif' },
+        { title: '思考', url: 'sikao.gif' },
+        { title: '汗', url: 'han.gif' },
+        { title: '困', url: 'kun.gif' },
+        { title: '睡', url: 'shui.gif' },
+        { title: '钱', url: 'qian.gif' },
+        { title: '失望', url: 'shiwang.gif' },
+        { title: '酷', url: 'ku.gif' },
+        { title: '色', url: 'se.gif' },
+        { title: '哼', url: 'heng.gif' },
+        { title: '鼓掌', url: 'guzhang.gif' },
+        { title: '晕', url: 'yun.gif' },
+        { title: '悲伤', url: 'beishang.gif' },
+        { title: '抓狂', url: 'zhuakuang.gif' },
+        { title: '黑线', url: 'heixian.gif' },
+        { title: '阴险', url: 'yinxian.gif' },
+        { title: '怒骂', url: 'numa.gif' },
+        { title: '互粉', url: 'hufen.gif' },
+        { title: '书呆子', url: 'shudaizi.gif' },
+        { title: '愤怒', url: 'fennu.gif' },
+        { title: '感冒', url: 'ganmao.gif' },
+        { title: '心', url: 'xin.gif' },
+        { title: '伤心', url: 'shangxin.gif' },
+        { title: '猪', url: 'zhu.gif' },
+        { title: '熊猫', url: 'xiongmao.gif' },
+        { title: '兔子', url: 'tuzi.gif' },
+        { title: '喔克', url: 'ok.gif' },
+        { title: '耶', url: 'ye.gif' },
+        { title: '棒棒', url: 'good.gif' },
+        { title: '不', url: 'no.gif' },
+        { title: '赞', url: 'zan.gif' },
+        { title: '来', url: 'lai.gif' },
+        { title: '弱', url: 'ruo.gif' },
+        { title: '草泥马', url: 'caonima.gif' },
+        { title: '神马', url: 'shenma.gif' },
+        { title: '囧', url: 'jiong.gif' },
+        { title: '浮云', url: 'fuyun.gif' },
+        { title: '给力', url: 'geili.gif' },
+        { title: '围观', url: 'weiguan.gif' },
+        { title: '威武', url: 'weiwu.gif' },
+        { title: '话筒', url: 'huatong.gif' },
+        { title: '蜡烛', url: 'lazhu.gif' },
+        { title: '蛋糕', url: 'dangao.gif' },
+        { title: '发红包', url: 'fahongbao.gif' }
       ]
-    };
-  },
-  components: {
-    avatar
-  },
-  methods: {
-    //事件处理器
-    blur() {
-      alert("ss");
-    },
-    showButton(index) {
-      //this.showFlag = true;
-      console.log(index + "index");
-      this.$set(this.buttonMap, index, true);
-    },
-    cancel(index) {
-      this.$set(this.buttonMap, index, false);
-      if (index !== 0) {
-        this.$set(this.replyMap, index, false);
-      }
-      console.log(index + "index");
-      //this.showFlag = false;
-    },
-    doSend() {
-      //console.log("====="+this.textarea);
-      this.$emit("doSend", this.textareaMap[0]);
-      this.$set(this.textareaMap, 0, "");
-    },
-    doChidSend(index, commentUserId, pid) {
-      this.$emit("doChidSend", this.textareaMap[index], commentUserId, pid);
-      this.$set(this.textareaMap, index, "");
-    },
-
-    //选择表情包
-    choseEmoji: function(index, inner) {
-      var con = "";
-      if (!this.textareaMap[index]) {
-        this.$set(this.textareaMap, index, "");
-      }
-      con = this.textareaMap[index] += "[" + inner + "]";
-      this.$set(this.textareaMap, index, con);
-    },
-    analyzeEmoji: function(cont) {
-      //编译表情替换成图片展示出来
-      var pattern1 = /\[[\u4e00-\u9fa5]+\]/g;
-      var pattern2 = /\[[\u4e00-\u9fa5]+\]/;
-      var content = cont.match(pattern1);
-      var str = cont;
-      if (content) {
-        for (var i = 0; i < content.length; i++) {
-          for (var j = 0; j < this.OwOlist.length; j++) {
-            if ("[" + this.OwOlist[j].title + "]" == content[i]) {
-              var src = this.OwOlist[j].url;
-              break;
-            }
-          }
-          var s = require("./img/face/" + src);
-          var imoj = "<img src='" + s + "'/>";
-
-          str = str.replace(pattern2, imoj);
-        }
-      }
-      return str;
-    },
-    doReply(index) {
-      this.$set(this.replyMap, index, true);
-      console.log(this.replyMap[index]);
-    },
-
-    pBodyStatus(index) {
-      this.$set(this.pBodyMap, index, !this.pBodyMap[index]);
     }
   },
   watch: {
@@ -484,12 +411,80 @@ export default {
     // '$route':'routeChange'
   },
   created() {
-    //生命周期函数
+    // 生命周期函数
   },
   mounted() {
-    //页面加载完成后
+    // 页面加载完成后
+  },
+  methods: {
+    // 事件处理器
+    blur() {
+      alert('ss')
+    },
+    showButton(index) {
+      // this.showFlag = true;
+      console.log(index + 'index')
+      this.$set(this.buttonMap, index, true)
+    },
+    cancel(index) {
+      this.$set(this.buttonMap, index, false)
+      if (index !== 0) {
+        this.$set(this.replyMap, index, false)
+      }
+      console.log(index + 'index')
+      // this.showFlag = false;
+    },
+    doSend() {
+      // console.log("====="+this.textarea);
+      this.$emit('doSend', this.textareaMap[0])
+      this.$set(this.textareaMap, 0, '')
+    },
+    doChidSend(index, commentUserId, pid) {
+      this.$emit('doChidSend', this.textareaMap[index], commentUserId, pid)
+      this.$set(this.textareaMap, index, '')
+    },
+
+    // 选择表情包
+    choseEmoji: function(index, inner) {
+      var con = ''
+      if (!this.textareaMap[index]) {
+        this.$set(this.textareaMap, index, '')
+      }
+      con = this.textareaMap[index] += '[' + inner + ']'
+      this.$set(this.textareaMap, index, con)
+    },
+    analyzeEmoji: function(cont) {
+      // 编译表情替换成图片展示出来
+      var pattern1 = /\[[\u4e00-\u9fa5]+\]/g
+      var pattern2 = /\[[\u4e00-\u9fa5]+\]/
+      var content = cont.match(pattern1)
+      var str = cont
+      if (content) {
+        for (var i = 0; i < content.length; i++) {
+          for (var j = 0; j < this.OwOlist.length; j++) {
+            if ('[' + this.OwOlist[j].title + ']' === content[i]) {
+              var src = this.OwOlist[j].url
+              break
+            }
+          }
+          var s = require('./img/face/' + src)
+          var imoj = "<img src='" + s + "'/>"
+
+          str = str.replace(pattern2, imoj)
+        }
+      }
+      return str
+    },
+    doReply(index) {
+      this.$set(this.replyMap, index, true)
+      console.log(this.replyMap[index])
+    },
+
+    pBodyStatus(index) {
+      this.$set(this.pBodyMap, index, !this.pBodyMap[index])
+    }
   }
-};
+}
 </script>
 <style scoped>
 .comment {
