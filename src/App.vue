@@ -8,11 +8,11 @@
   </div>
 </template>
 <script>
-import topPage from './components/common/topPage'
+import TopPage from './components/common/TopPage'
 export default {
   name: 'Translate',
   components: {
-    'top-page': topPage
+    'top-page': TopPage
   },
   data() {
     return {

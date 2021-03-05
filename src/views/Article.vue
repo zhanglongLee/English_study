@@ -79,7 +79,7 @@
 </template>
 
 <script>
-import comment from '../components/common/Comment'
+import comment from '../components/common/comment/Comment'
 export default {
   name: 'Article',
   components: {
@@ -92,14 +92,14 @@ export default {
       minRows: 4,
       maxRows: 4,
       commentNum: 2,
-      avatar: require('@/components/common/img/icon/avtar.png'),
+      avatar: require('@/components/common/comment/img/icon/avtar.png'),
       commentList: [
         {
           id: 1,
           commentUser: {
             id: 1,
             nickName: '小胖',
-            avatar: require('@/components/common/img/icon/xiaopang.jpg')
+            avatar: require('@/components/common/comment/img/icon/xiaopang.jpg')
           },
           content: '小肥你好呀[太开心][太开心]~',
           createDate: '2019-9-23 17:36:02',
@@ -109,12 +109,12 @@ export default {
               commentUser: {
                 id: 2,
                 nickName: '小肥',
-                avatar: require('@/components/common/img/icon/xiaofei.jpg')
+                avatar: require('@/components/common/comment/img/icon/xiaofei.jpg')
               },
               targetUser: {
                 id: 1,
                 nickName: '小胖',
-                avatar: require('@/components/common/img/icon/xiaopang.jpg')
+                avatar: require('@/components/common/comment/img/icon/xiaopang.jpg')
               },
               content: '小胖你好呀[太开心][太开心]~很高兴认识你',
               createDate: '2019-9-23 17:45:26'

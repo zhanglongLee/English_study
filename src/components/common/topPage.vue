@@ -1,5 +1,6 @@
 <template>
   <header>
+    <Login :visibility="isShow" />
     <div class="title">
       <ul>
         <!-- <li class="logo">
@@ -22,28 +23,33 @@
             <i></i>
           </div>
         </div>
-        <span class="login">登录/注册</span>
+        <span class="login" @click="isShow=true">登录/注册</span>
         <!-- <div class="content">
-                  <div class="information">
-                    <img src="./assets/images/logo.png" alt="头像">
-                  </div>
-                  <div class="logout-wrap">
-                    <div class="userName">Lee</div>
-                    <div class="personal-center">个人中心</div>
-                    <div class="collection">我的收藏</div>
-                    <div class="logout">退出登录</div>
-                  </div>
-                </div> -->
+          <div class="information">
+            <img src="@/assets/images/logo.png" alt="头像" />
+          </div>
+          <div class="logout-wrap">
+            <div class="userName">Lee</div>
+            <div class="personal-center">个人中心</div>
+            <div class="collection">我的收藏</div>
+            <div class="logout">退出登录</div>
+          </div>
+        </div> -->
       </div>
     </div>
   </header>
 </template>
 
 <script>
+import Login from '@/components/common/login/Login'
 export default {
   name: 'TopPage',
+  components: {
+    Login
+  },
   data() {
     return {
+      isShow: false, // 登录
       navList: [
         {
           name: '首页',
