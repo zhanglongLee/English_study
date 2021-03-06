@@ -1,18 +1,22 @@
 <template>
   <div class="container">
-    <top-page v-if="!isNotFound" />
-    <section>
-      <router-view />
-    </section>
-    <footer></footer>
+    <BackTop :visibility-height="200">
+      <top-page v-if="!isNotFound" />
+      <section>
+        <router-view />
+      </section>
+      <footer></footer>
+    </BackTop>
   </div>
 </template>
 <script>
 import TopPage from './components/common/TopPage'
+import BackTop from './components/common/BackTop'
 export default {
   name: 'Translate',
   components: {
-    'top-page': TopPage
+    'top-page': TopPage,
+    BackTop
   },
   data() {
     return {
@@ -37,6 +41,7 @@ export default {
 <style lang="scss">
 @import url(assets/css/reset.css);
 @import url(assets/css/iconfont.css);
+@import url(assets/css/common.css);
 *{
   box-sizing: border-box;
 }
