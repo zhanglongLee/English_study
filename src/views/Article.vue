@@ -1,8 +1,11 @@
 <template>
-  <div class="container">
+  <div class="article-container">
     <div class="content">
       <div class="content-top">
         <div class="latest shadow">
+<<<<<<< HEAD
+          <Top5List />
+=======
           <div class="big-img-content">
             <div class="big-img">
               <img :src="require('@/assets/images/article/1.png')" />
@@ -47,10 +50,14 @@
               </div>
             </div>
           </div>
+>>>>>>> 16cee39d57ed14f8259aca12af9c9f6d6b7c28ea
         </div>
         <div class="recommend shadow"></div>
       </div>
       <div class="article-list">
+<<<<<<< HEAD
+        <ArticleList />
+=======
         <div v-for="item in 10" :key="item" class="article shadow">
           <div class="pic"></div>
           <div class="main">
@@ -59,6 +66,7 @@
             <div class="desc">我是描述</div>
           </div>
         </div>
+>>>>>>> 16cee39d57ed14f8259aca12af9c9f6d6b7c28ea
       </div>
       <div class="comment">
         <comment
@@ -79,11 +87,19 @@
 </template>
 
 <script>
+<<<<<<< HEAD
+import comment from '@/components/common/comment/Comment'
+import Top5List from '@/components/article/Top5List'
+import ArticleList from '@/components/article/ArticleList'
+=======
 import comment from '../components/common/comment/Comment'
+>>>>>>> 16cee39d57ed14f8259aca12af9c9f6d6b7c28ea
 export default {
   name: 'Article',
   components: {
-    comment
+    comment,
+    Top5List,
+    ArticleList
   },
   data() {
     return {
@@ -128,11 +144,16 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+<<<<<<< HEAD
+
+.article-container {
+=======
 .shadow {
   background: #fff;
   box-shadow: 5px 5px 20px #e4e3e3;
 }
 .container {
+>>>>>>> 16cee39d57ed14f8259aca12af9c9f6d6b7c28ea
   position: relative;
   width: 100%;
   padding-top: 54px;
@@ -146,6 +167,12 @@ export default {
       display: flex;
       justify-content: space-between;
       width: 100%;
+<<<<<<< HEAD
+        .latest{
+          width: 60%;
+        }
+
+=======
 
       .latest {
         width: 60%;
@@ -230,6 +257,7 @@ export default {
             }
           }
         }
+>>>>>>> 16cee39d57ed14f8259aca12af9c9f6d6b7c28ea
       }
       .recommend {
         // position: fixed;
@@ -240,6 +268,10 @@ export default {
     }
     .article-list {
       width: 60%;
+<<<<<<< HEAD
+    }
+  }
+=======
       .article {
         width: 100%;
         // height: 150px;
@@ -265,4 +297,5 @@ export default {
     }
   }
 }
+>>>>>>> 16cee39d57ed14f8259aca12af9c9f6d6b7c28ea
 </style>
