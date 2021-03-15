@@ -1,8 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
-import Translate from '../views/Translate.vue'
-import Article from '../views/Article.vue'
+
 import NotFound from '../views/NotFound.vue'
 
 Vue.use(VueRouter)
@@ -11,7 +9,7 @@ const routes = [
   {
     path: '/',
     name: 'Home',
-    component: Home,
+    component: () => import('../views/Home.vue'),
     meta: {
       title: '英语学习网站'
     }
@@ -19,7 +17,7 @@ const routes = [
   {
     path: '/translate',
     name: 'Translate',
-    component: Translate,
+    component: () => import('../views/Translate.vue'),
     meta: {
       title: '我要翻译'
     }
@@ -27,9 +25,17 @@ const routes = [
   {
     path: '/article',
     name: 'Article',
-    component: Article,
+    component: () => import('../views/Article.vue'),
     meta: {
       title: '文章专区'
+    }
+  },
+  {
+    path: '/article/ArticleDetail/:id',
+    name: 'ArticleDetail',
+    component: () => import('../views/ArticleDetail.vue'),
+    meta: {
+      title: '文章详情'
     }
   },
   {

@@ -9,31 +9,6 @@ import qs from 'qs'
 import axios from 'axios'
 Vue.prototype.md5 = md5
 Vue.prototype.$qs = qs
-axios.jsonp = (url, data) => {
-  if (!url) { throw new Error('url is necessary') }
-  const callback = 'CALLBACK' + Math.random().toString().substr(9, 18)
-  const JSONP = document.createElement('script')
-  JSONP.setAttribute('type', 'text/javascript')
-
-  const headEle = document.getElementsByTagName('head')[0]
-
-  let ret = ''
-  if (data) {
-    if (typeof data === 'string') { ret = '&' + data } else if (typeof data === 'object') {
-      for (const key in data) { ret += '&' + key + '=' + encodeURIComponent(data[key]) }
-    }
-    ret += '&_time=' + Date.now()
-  }
-  JSONP.src = `${url}?callback=${callback}${ret}`
-  return new Promise((resolve, reject) => {
-    window[callback] = r => {
-      resolve(r)
-      headEle.removeChild(JSONP)
-      delete window[callback]
-    }
-    headEle.appendChild(JSONP)
-  })
-}
 
 Vue.prototype.$axios = axios
 Vue.use(ElementUI)
@@ -48,6 +23,35 @@ router.beforeEach((to, from, next) => {
   }
   next()
 })
+
+Vue.prototype.$scrollToTop = function() {
+  // chrome
+  document.body.scrollTop = 0
+  // firefox
+  document.documentElement.scrollTop = 0
+  // safari
+  window.pageYOffset = 0
+}
+
+const cubic = value => Math.pow(value, 3)
+const easeInOutCubic = value => value < 0.5 ? cubic(value * 2) / 2 : 1 - cubic((1 - value) * 2) / 2
+// 滚动至页面顶部，使用 Element-ui 回到顶部 组件中的算法
+Vue.prototype.scrollToTop = function() {
+  const el = document.documentElement
+  const beginTime = Date.now()
+  const beginValue = el.scrollTop
+  const rAF = window.requestAnimationFrame || (func => setTimeout(func, 16))
+  const frameFunc = () => {
+    const progress = (Date.now() - beginTime) / 500
+    if (progress < 1) {
+      el.scrollTop = beginValue * (1 - easeInOutCubic(progress))
+      rAF(frameFunc)
+    } else {
+      el.scrollTop = 0
+    }
+  }
+  rAF(frameFunc)
+}
 
 new Vue({
   router,

@@ -1146,7 +1146,7 @@ export default {
   margin-top: 2px;
   width: 5px;
   height: 23px;
-  background: #3cb371; /*#1E90FF*/
+  background: rgba(175, 144, 92, 1);
 }
 .com-rep {
   display: inline-block;

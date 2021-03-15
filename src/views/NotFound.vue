@@ -25,7 +25,8 @@ export default {
 
 <style lang="scss" scoped>
 .error-page {
-  padding: 1rem;
+  width: 100%;
+  height: 100vh;
   background: #F7F8FB;
   color: #47494E;
   text-align: center;
@@ -38,11 +39,6 @@ export default {
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
   -webkit-font-smoothing: antialiased;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
 
   .error {
     display: flex;

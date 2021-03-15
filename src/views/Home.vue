@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div class="home" @scroll="handleScroll">
     <!-- <div class="banner">
       <swiper ref="mySwiper" class="banner-container" :options="swiperOption">
         <swiper-slide v-for="(item,index) in bannerList" :key="index">
@@ -16,9 +16,6 @@
       <div
         id="pic1"
         class="activebg fisrtbg"
-        :style="{
-          'background-position-y': positionY1 + 'px'
-        }"
       ></div>
       <div class="content-item">
         <div class="content">
@@ -38,9 +35,6 @@
       <div
         id="pic2"
         class="activebg secondbg"
-        :style="{
-          'background-position-y': positionY2 + 'px'
-        }"
       ></div>
       <div class="content-item">
         <div class="content">
@@ -59,9 +53,6 @@
       <div
         id="pic3"
         class="activebg thirdbg"
-        :style="{
-          'background-position-y': positionY3 + 'px'
-        }"
       ></div>
       <div class="content-item">
         <div class="content">
@@ -80,9 +71,6 @@
       <div
         id="pic4"
         class="activebg fourbg"
-        :style="{
-          'background-position-y': positionY4 + 'px'
-        }"
       ></div>
     </div>
   </div>
@@ -132,11 +120,10 @@ export default {
           prevEl: '.swiper-button-prev'
         }
       },
-      ratio: 0.05,
-      positionY1: 30,
-      positionY2: 100,
-      positionY3: 150,
-      positionY4: 200,
+      positionY1: 0,
+      positionY2: 0,
+      positionY3: 0,
+      positionY4: 0,
       Y1: 0,
       Y2: 0,
       Y3: 0,
@@ -149,25 +136,29 @@ export default {
     }
   },
   mounted() {
-    window.addEventListener('scroll', this.handleScroll)
     window.onload = () => {
-      const pic1 = document.getElementById('pic1')
-      const pic2 = document.getElementById('pic2')
-      const pic3 = document.getElementById('pic3')
-      this.positionY1 = this.Y1 = pic1.offsetTop * this.ratio
-      this.positionY2 = this.Y2 = pic2.offsetTop * this.ratio
-      this.positionY3 = this.Y3 = pic3.offsetTop * this.ratio
+      // const pic1 = document.getElementById('pic1')
+      // const pic2 = document.getElementById('pic2')
+      // const pic3 = document.getElementById('pic3')
+      // const pic4 = document.getElementById('pic4')
+      // this.positionY1 = this.Y1 = pic1.offsetTop * this.ratio
+      // this.positionY2 = this.Y2 = pic2.offsetTop * this.ratio
+      // this.positionY3 = this.Y3 = pic3.offsetTop * this.ratio
+      // this.positionY4 = this.Y4 = pic4.offsetTop * this.ratio
+      // console.log(this.positionY1, this.positionY2, this.positionY3, this.positionY4)
     }
   },
   methods: {
     handleScroll() {
-      const scrollTop =
-        window.pageYOffset ||
-        document.documentElement.scrollTop ||
-        document.body.scrollTop
-      this.positionY1 = this.Y1 - scrollTop * this.ratio
-      this.positionY2 = this.Y2 - scrollTop * this.ratio
-      this.positionY3 = this.Y3 - scrollTop * this.ratio
+      // const scrollTop =
+      //   window.pageYOffset ||
+      //   document.documentElement.scrollTop ||
+      //   document.body.scrollTop
+      // this.positionY1 = this.Y1 - scrollTop * this.ratio
+      // this.positionY2 = this.Y2 - scrollTop * this.ratio
+      // this.positionY3 = this.Y3 - scrollTop * this.ratio
+      // this.positionY4 = this.Y4 - scrollTop * this.ratio
+      // console.log(this.positionY1, this.positionY2, this.positionY3, this.positionY4)
     }
   }
 }
@@ -175,7 +166,7 @@ export default {
 
 <style scoped>
 .home {
-  height: 100%;
+  height: 100vh;
 }
 .banner {
   width: 100%;
@@ -252,6 +243,7 @@ export default {
   background-attachment: fixed;
   background-position: center 0;
   background-position-x: 50%;
+  background-position-y: 0;
   background-size: 100% 100%;
   background-repeat: no-repeat;
 }
