@@ -6,7 +6,7 @@
       class="articles-list-content-left-item"
     >
       <div class="item-info">
-        <div class="title ellipsis" @click="navToDetail(item.id)">
+        <div class="title ellipsis" @click="toDetail(item.id)">
           {{ item.title }}
         </div>
         <div class="brief">{{ item.content.substr(0, 100) }}...</div>
@@ -27,6 +27,11 @@ export default {
       default: () => {
         return []
       }
+    }
+  },
+  methods: {
+    toDetail(id) {
+      this.$emit('navToDetail', id)
     }
   }
 }

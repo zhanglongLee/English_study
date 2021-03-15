@@ -227,7 +227,7 @@ export default {
   position: relative;
   width: 1200px;
   margin: 0 auto;
-  padding-bottom: 20px;
+  padding: 20px 0;
 }
 .article-detail {
   display: flex;
@@ -235,7 +235,7 @@ export default {
 }
 .article-detail-left {
   width: 780px;
-  margin: 51px 60px 0 0;
+  margin: 0 60px 0 0;
 }
 .article-detail-left > .title {
   font-size: 26px;

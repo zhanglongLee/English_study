@@ -9,7 +9,7 @@
         v-loading="loading"
         class="articles-list-content-left"
       >
-        <ContentList :cur-list="curList" />
+        <ContentList :cur-list="curList" @navToDetail="navToDetail" />
         <Pagination :size="size" :total="total" @currentChange="currentChange" />
       </div>
       <div v-else v-loading="loading" class="articles-list-content-left">
