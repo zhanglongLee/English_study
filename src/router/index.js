@@ -39,6 +39,22 @@ const routes = [
     }
   },
   {
+    path: '/listen',
+    name: 'Listen',
+    component: () => import('../views/Listen.vue'),
+    meta: {
+      title: '听力专区'
+    }
+  },
+  {
+    path: '/listen/ListenDetail/:id',
+    name: 'ListenDetail',
+    component: () => import('../views/ListenDetail.vue'),
+    meta: {
+      title: '听力练习'
+    }
+  },
+  {
     path: '*',
     component: NotFound,
     meta: {

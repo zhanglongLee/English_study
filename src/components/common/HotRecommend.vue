@@ -4,7 +4,7 @@
       <div class="item-header">
         <div class="line"></div>
         <div class="item-title">
-          <span>热点推荐</span>
+          <span>{{ titleText }}</span>
         </div>
       </div>
       <div class="line"></div>
@@ -28,7 +28,14 @@
 <script>
 export default {
   name: 'HotRecommend',
-  props: {},
+  props: {
+    titleText: {
+      type: String,
+      default: () => {
+        return '热点推荐'
+      }
+    }
+  },
   data() {
     return {
       hotRecommendList: []

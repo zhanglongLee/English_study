@@ -71,7 +71,7 @@
 </template>
 
 <script>
-import HotRecommend from '../components/article/HotRecommend'
+import HotRecommend from '../components/common/HotRecommend'
 import comment from '@/components/common/comment/Comment'
 export default {
   name: 'ArticleDetail',
@@ -221,7 +221,7 @@ export default {
 .article-container {
   position: relative;
   min-width: 1300px;
-  padding-top: 54px;
+  // padding-top: 54px;
 }
 .article-content {
   position: relative;

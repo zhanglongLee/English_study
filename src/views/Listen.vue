@@ -1,31 +1,17 @@
 <template>
   <div class="article-container">
     <div class="content">
-      <!-- <div class="content-top">
-        <div class="latest shadow">
-          <Top5List />
-        </div>
-        <div class="recommend shadow"></div>
-      </div>
-      <div class="article-list">
-        <ArticleList />
-      </div> -->
-      <ArticleList />
-
+      <ListenList />
     </div>
   </div>
 </template>
 
 <script>
-// import Top5List from '@/components/article/Top5List'
-// import ArticleList from '@/components/article/ArticleList'
-import ArticleList from '@/components/article/ArticleList'
+import ListenList from '@/components/listen/ListenList'
 export default {
   name: 'Article',
   components: {
-    ArticleList
-    // Top5List,
-    // ArticleList
+    ListenList
   },
   data() {
     return {

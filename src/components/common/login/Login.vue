@@ -1,5 +1,5 @@
 <template>
-  <div v-if="isShow" class="login-modal-container">
+  <div class="login-modal-container">
     <div class="login-form">
       <div class="panfish">
         <img v-show="currentFocus===''" src="https://b-gold-cdn.xitu.io/v3/static/img/normal.0447fe9.png" class="normal" />
@@ -8,7 +8,7 @@
       </div>
       <div class="login-pancel">
         <h1 class="title">登录</h1>
-        <i title="关闭" class="close-btn el-icon-close" @click="isShow=false"></i>
+        <i title="关闭" class="close-btn el-icon-close" @click="handleClose"></i>
         <el-form ref="ruleForm" :model="postData" :rules="rules">
           <el-form-item prop="phoneNumber">
             <el-input v-model="postData.phoneNumber" class="phoneNumber-input" placeholder="请输入手机号" maxlength="64" @focus="currentFocus='phoneNumber'" @blur="currentFocus=''" />
@@ -19,6 +19,7 @@
             </el-input>
           </el-form-item>
         </el-form>
+        <el-checkbox v-model="isRemember">记住密码</el-checkbox>
         <el-button style="width:100%;margin-top:10px" :loading="loginLoading" type="primary" @click="login">注册/登录</el-button>
       </div>
     </div>
@@ -81,7 +82,7 @@ export default {
     }
     return {
       pwdType: 'password',
-      isShow: false,
+      isRemember: false,
       currentFocus: '',
       postData: {
         phoneNumber: '', // 账号
@@ -99,9 +100,7 @@ export default {
     }
   },
   watch: {
-    visibility() {
-      this.isShow = this.visibility
-    },
+
     'postData.phoneNumber': function(curVal, oldVal) {
       if (!curVal) {
         this.postData.phoneNumber = ''
@@ -109,16 +108,49 @@ export default {
       }
       // 实时把非数字的输入过滤掉
       this.postData.phoneNumber = curVal.match(/\d/gi) ? curVal.match(/\d/gi).join('') : ''
+    },
+    isRemember(newD, oldD) {
+      // 修改记住密码状态值
+      this.$store.commit('changeRememberStatus', newD)
     }
   },
   mounted() {
-    this.isShow = this.visibility
+    this.resetForm()
   },
   methods: {
-    login() {
+    // 关闭
+    handleClose() {
+      this.$emit('closecb')
     },
+    // 检查是否记住密码
+    checkRemember() {
+      this.isRemember = this.$store.state.remember
+    },
+    // 登录
+    login() {
+      this.$refs.ruleForm.validate((valid) => {
+        if (valid) {
+          this.loginLoading = true
+          this.$emit('logincb', 'ok')
+          const token = '123'
+          this.$store.commit('setToken', token)
+          this.loginLoading = false
+        }
+      })
+    },
+    // 显示隐藏密码
     showPassWord() {
       this.pwdType === 'password' ? (this.pwdType = '') : (this.pwdType = 'password')
+    },
+    // 重置表单
+    resetForm() {
+      if (this.isRemember) {
+        return
+      }
+      this.postData = {
+        phoneNumber: '', // 账号
+        password: '' // 密码
+      }
     }
   }
 }

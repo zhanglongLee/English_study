@@ -1,5 +1,5 @@
 <template>
-  <div class="home" @scroll="handleScroll">
+  <div class="home">
     <!-- <div class="banner">
       <swiper ref="mySwiper" class="banner-container" :options="swiperOption">
         <swiper-slide v-for="(item,index) in bannerList" :key="index">
@@ -27,7 +27,7 @@
             <h2>只需简单一步</h2>
             <p>只需输入要翻译的汉字</p>
             <p>无论如何都可以将它翻译出来</p>
-            <el-button class="entry" type="primary" plain>立即翻译</el-button>
+            <el-button class="entry" type="primary" plain @click="navTo('/translate')">立即翻译</el-button>
             <!-- <a href="#">进入翻译&rsaquo;</a> -->
           </div>
         </div>
@@ -46,7 +46,7 @@
             <h2>帮助您更进一步</h2>
             <p>这里面有优质的听力练习</p>
             <p>通过听力来练习您的英语听力水平</p>
-            <el-button class="entry" type="primary" plain>开始听力</el-button>
+            <el-button class="entry" type="primary" plain @click="navTo('/listen')">开始听力</el-button>
           </div>
         </div>
       </div>
@@ -64,7 +64,7 @@
             <h2>不仅仅是文章</h2>
             <p>这里面有优质的英语文章</p>
             <p>甚至还有一些英文视频来供您观看</p>
-            <el-button class="entry" type="primary" plain>立即阅读</el-button>
+            <el-button class="entry" type="primary" plain @click="navTo('/article')">立即阅读</el-button>
           </div>
         </div>
       </div>
@@ -136,29 +136,12 @@ export default {
     }
   },
   mounted() {
-    window.onload = () => {
-      // const pic1 = document.getElementById('pic1')
-      // const pic2 = document.getElementById('pic2')
-      // const pic3 = document.getElementById('pic3')
-      // const pic4 = document.getElementById('pic4')
-      // this.positionY1 = this.Y1 = pic1.offsetTop * this.ratio
-      // this.positionY2 = this.Y2 = pic2.offsetTop * this.ratio
-      // this.positionY3 = this.Y3 = pic3.offsetTop * this.ratio
-      // this.positionY4 = this.Y4 = pic4.offsetTop * this.ratio
-      // console.log(this.positionY1, this.positionY2, this.positionY3, this.positionY4)
-    }
+
   },
   methods: {
-    handleScroll() {
-      // const scrollTop =
-      //   window.pageYOffset ||
-      //   document.documentElement.scrollTop ||
-      //   document.body.scrollTop
-      // this.positionY1 = this.Y1 - scrollTop * this.ratio
-      // this.positionY2 = this.Y2 - scrollTop * this.ratio
-      // this.positionY3 = this.Y3 - scrollTop * this.ratio
-      // this.positionY4 = this.Y4 - scrollTop * this.ratio
-      // console.log(this.positionY1, this.positionY2, this.positionY3, this.positionY4)
+    navTo(path) {
+      document.documentElement.scrollTop = 0
+      this.$router.push({ path })
     }
   }
 }

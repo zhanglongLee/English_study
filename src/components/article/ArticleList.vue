@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import HotRecommend from './HotRecommend'
+import HotRecommend from '../common/HotRecommend'
 import ContentList from '../common/ContentList'
 import Pagination from '../common/Pagination'
 import typeList from '../common/typeList'

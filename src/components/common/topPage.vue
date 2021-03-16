@@ -1,6 +1,6 @@
 <template>
   <header>
-    <Login :visibility="isShow" />
+    <Login v-if="isShow" @logincb="loginCallBack" @closecb="logoutCallBack" />
     <div class="title">
       <ul>
         <!-- <li class="logo">
@@ -23,18 +23,13 @@
             <i></i>
           </div>
         </div>
-        <span class="login" @click="isShow = true">登录/注册</span>
-        <!-- <div class="content">
-          <div class="information">
-            <img src="@/assets/images/logo.png" alt="头像" />
+        <span v-if="!isLogin" class="login" @click="loginClick">登录/注册</span>
+        <div v-if="isLogin" class="content">
+          <div title="点击进入个人主页">
+            <el-avatar class="information" :size="46" :src="circleUrl" />
           </div>
-          <div class="logout-wrap">
-            <div class="userName">Lee</div>
-            <div class="personal-center">个人中心</div>
-            <div class="collection">我的收藏</div>
-            <div class="logout">退出登录</div>
-          </div>
-        </div> -->
+          <div class="logout" title="点击退出登录" @click="doLogOut">退出登录</div>
+        </div>
       </div>
     </div>
   </header>
@@ -49,6 +44,8 @@ export default {
   },
   data() {
     return {
+      isLogin: false,
+      circleUrl: require('@/assets/images/logo.png'),
       isShow: false, // 登录
       navList: [
         {
@@ -76,27 +73,51 @@ export default {
   },
   watch: {
     $route(newPath) {
-      const path = newPath.fullPath
+      const path = '/' + newPath.fullPath.split('/')[1]
       this.checkAct(path)
     }
   },
   mounted() {
+    this.checkToken()
     this.checkAct(this.$route.fullPath)
   },
   methods: {
+    // 显示登录组件
+    loginClick() {
+      this.isShow = true
+    },
+    // 检测是否登录
+    checkToken() {
+      this.isLogin = !!this.$store.state.token
+    },
+    // 关闭登录组件回调
+    logoutCallBack() {
+      this.isShow = false
+    },
+    // 登录回调
+    loginCallBack(flag) {
+      this.isLogin = flag === 'ok'
+      this.isShow = false
+    },
+    // 菜单栏跳转
     toNav(path) {
       this.$router.push({ path: path })
     },
+    // 高亮点击的菜单
     checkAct(path) {
       if (path) {
         this.navList.forEach((item, index) => {
-          if (item.path === path) {
+          item.active = false
+          if (path === item.path) {
             this.navList[index].active = true
-          } else {
-            item.active = false
           }
         })
       }
+    },
+    // 退出登录
+    doLogOut() {
+      this.isLogin = false
+      this.$store.commit('removeToken')
     }
   }
 }
@@ -104,15 +125,15 @@ export default {
 
 <style lang="scss" scoped>
 header {
-  position: fixed;
-  z-index: 9999999;
-  top: 0px;
-  left: 0px;
+  // position: fixed;
+  // z-index: 9999999;
+  // top: 0px;
+  // left: 0px;
   width: 100%;
   height: 54px;
   min-width: 1300px;
   margin: 0 auto;
-  background: rgba(61, 68, 76, 0.7);
+  background: rgba(61, 68, 76, 1);
 
   .title {
     display: flex;
@@ -145,7 +166,7 @@ header {
 
     .item.active {
       color: #fff;
-      background: rgba(61, 68, 76, 1);
+      background: rgb(41, 46, 51);
     }
 
     .information-wrap {
@@ -200,57 +221,23 @@ header {
         display: flex;
         justify-content: center;
         align-items: center;
-        position: relative;
-        width: 100px;
-        height: 54px;
 
         .information {
-          width: 40px;
-          height: 40px;
-          border-radius: 50%;
+          margin: 0 10px;
           cursor: pointer;
-          overflow: hidden;
-
-          img {
+          /deep/ img {
             width: 100%;
-            height: 100%;
           }
         }
-
-        .logout-wrap {
-          z-index: 9999;
-          position: absolute;
-          top: 54px;
-          right: 0px;
-          width: 100px;
-          height: 0;
-          overflow: hidden;
-          padding: 0 10px;
-          background: #31363e;
-          transition: all 0.2s linear;
-
-          div {
-            width: 100%;
-            line-height: 30px;
-            text-align: center;
-            font-size: 14px;
-            color: #ccc;
-            cursor: pointer;
-          }
-
-          .userName {
-            border-bottom: 1px solid #ccc;
-          }
-
-          div:hover {
+        .logout{
+          font-size: 14px;
+          color: #ccc;
+          cursor: pointer;
+          &:hover{
             color: #fff;
           }
         }
 
-        .information:hover + .logout-wrap,
-        .logout-wrap:hover {
-          height: 121px;
-        }
       }
     }
   }

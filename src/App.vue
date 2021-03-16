@@ -7,7 +7,7 @@
       <router-view />
     </section>
     <!-- 回到顶部 -->
-    <img v-show="btnFlag" class="go-top" src="123" @click="ScrollTop" />
+    <img v-show="btnFlag" class="go-top" src="./assets/images/backTop.png" @click="ScrollTop" />
   </div>
 </template>
 <script>
@@ -70,7 +70,7 @@ export default {
   bottom: 50px;
   width: 40px;
   height: 40px;
-  background: red;
+  cursor: pointer;
 }
 .container {
   position: relative;
