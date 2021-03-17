@@ -7,7 +7,7 @@
         <img v-show="currentFocus==='password'" src="https://b-gold-cdn.xitu.io/v3/static/img/blindfold.58ce423.png" class="blindfold" />
       </div>
       <div class="login-pancel">
-        <h1 class="title">登录</h1>
+        <h1 class="title">{{ isRegister?'注册':'登录' }}</h1>
         <i title="关闭" class="close-btn el-icon-close" @click="handleClose"></i>
         <el-form ref="ruleForm" :model="postData" :rules="rules">
           <el-form-item prop="phoneNumber">
@@ -19,8 +19,9 @@
             </el-input>
           </el-form-item>
         </el-form>
-        <el-checkbox v-model="isRemember">记住密码</el-checkbox>
-        <el-button style="width:100%;margin-top:10px" :loading="loginLoading" type="primary" @click="login">注册/登录</el-button>
+        <div class="register" @click="isRegister=!isRegister">{{ isRegister?'返回登录':'立即注册' }}</div>
+        <!-- <el-checkbox v-model="isRemember">记住密码</el-checkbox> -->
+        <el-button style="width:100%;margin-top:10px" :loading="loginLoading" type="primary" @click="login">{{ isRegister?'注册':'登录' }}</el-button>
       </div>
     </div>
   </div>
@@ -81,8 +82,11 @@ export default {
       }
     }
     return {
+      // 当前是否为注册
+      isRegister: false,
+      // 用来显示隐藏密码
       pwdType: 'password',
-      isRemember: false,
+      // 当前鼠标点击的类型：phoneNumber|password|""
       currentFocus: '',
       postData: {
         phoneNumber: '', // 账号
@@ -100,7 +104,6 @@ export default {
     }
   },
   watch: {
-
     'postData.phoneNumber': function(curVal, oldVal) {
       if (!curVal) {
         this.postData.phoneNumber = ''
@@ -108,23 +111,16 @@ export default {
       }
       // 实时把非数字的输入过滤掉
       this.postData.phoneNumber = curVal.match(/\d/gi) ? curVal.match(/\d/gi).join('') : ''
-    },
-    isRemember(newD, oldD) {
-      // 修改记住密码状态值
-      this.$store.commit('changeRememberStatus', newD)
     }
+
   },
   mounted() {
-    this.resetForm()
+
   },
   methods: {
     // 关闭
     handleClose() {
       this.$emit('closecb')
-    },
-    // 检查是否记住密码
-    checkRemember() {
-      this.isRemember = this.$store.state.remember
     },
     // 登录
     login() {
@@ -141,17 +137,8 @@ export default {
     // 显示隐藏密码
     showPassWord() {
       this.pwdType === 'password' ? (this.pwdType = '') : (this.pwdType = 'password')
-    },
-    // 重置表单
-    resetForm() {
-      if (this.isRemember) {
-        return
-      }
-      this.postData = {
-        phoneNumber: '', // 账号
-        password: '' // 密码
-      }
     }
+
   }
 }
 </script>
@@ -212,6 +199,17 @@ export default {
     position: relative;
     padding: 22px;
 
+    .register{
+      position: absolute;
+      font-size: 14px;
+      color: #666;
+      right: 30px;
+      bottom: 70px;
+      cursor: pointer;
+      &:hover{
+        color: #409EFF;
+      }
+    }
     .title{
       margin-bottom: 30px;
       font-size: 18px;

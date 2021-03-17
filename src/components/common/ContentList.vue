@@ -11,7 +11,7 @@
         </div>
         <div class="brief">{{ item.content.substr(0, 150) }}...</div>
         <div class="content-info">
-          <div class="date">{{ item.happendate.split(" ")[0] }}</div>
+          <div class="date">{{ item.happendate }}</div>
           <div class="views"><i class="iconfont icon-yanjing"></i>{{ item.views }}</div>
           <div class="likes"><i class="iconfont icon-duomeitiicon-"></i>{{ item.views }}</div>
         </div>

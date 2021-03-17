@@ -56,23 +56,23 @@ export default {
         data: [
           {
             id: '2017',
-            title: '车路协同技术在智慧高速建设中的应用展望'
+            title: 'Texas governor demands ‘emergency’ election reform as state GOP unveils two dozen bills aimed at voting rights'
           },
           {
             id: '2013',
-            title: '新基建赋能交通新发展'
+            title: 'Texas governor demands ‘emergency’ election reform as state GOP unveils two dozen bills aimed at voting rights'
           },
           {
             id: '2010',
-            title: '现有高速公路智慧化提升改造方案'
+            title: 'Texas governor demands ‘emergency’ election reform as state GOP unveils two dozen bills aimed at voting rights'
           },
           {
             id: '2005',
-            title: '基于高速公路ETC门架收费设施的车路协同系统探讨'
+            title: 'Texas governor demands ‘emergency’ election reform as state GOP unveils two dozen bills aimed at voting rights'
           },
           {
             id: '2001',
-            title: '基于公共云平台部署的省级视频云系统方案'
+            title: 'Texas governor demands ‘emergency’ election reform as state GOP unveils two dozen bills aimed at voting rights'
           }
         ],
         msg: '成功',

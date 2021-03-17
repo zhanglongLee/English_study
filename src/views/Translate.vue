@@ -84,7 +84,6 @@ export default {
     }
   },
   mounted() {
-    this.unique([1, 1, 1])
     this.historyArr = this.getHistoryArr()
   },
   methods: {
@@ -116,8 +115,10 @@ export default {
       }
       // 搜索记录存储到本地
       this.setHistoryItem(this.postData.query)
+      const baseUrl = process.env.NODE_ENV === 'development' ? '/api' : 'http://api.fanyi.baidu.com/api/trans/vip/translate'
+      console.log(baseUrl)
       this.$axios({
-        url: '/api',
+        url: baseUrl,
         method: 'get',
         params: params
       })

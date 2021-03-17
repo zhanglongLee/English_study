@@ -55,6 +55,15 @@ const routes = [
     }
   },
   {
+    path: '/PersonalCenter',
+    name: 'PersonalCenter',
+    component: () => import('../views/PersonalCenter.vue'),
+    meta: {
+      title: '个人中心',
+      authentication: true
+    }
+  },
+  {
     path: '*',
     component: NotFound,
     meta: {

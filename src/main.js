@@ -5,10 +5,8 @@ import store from './store'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import md5 from 'md5'
-import qs from 'qs'
 import axios from 'axios'
 Vue.prototype.md5 = md5
-Vue.prototype.$qs = qs
 
 Vue.prototype.$axios = axios
 Vue.use(ElementUI)
@@ -21,18 +19,16 @@ router.beforeEach((to, from, next) => {
   if (to.meta && to.meta.title) {
     document.title = to.meta.title
   }
+  if (to.meta && to.meta.authentication) {
+    if (!localStorage.getItem('token')) {
+      next({ path: '/' })
+      alert('请先登录')
+    }
+  }
   next()
 })
 
-Vue.prototype.$scrollToTop = function() {
-  // chrome
-  document.body.scrollTop = 0
-  // firefox
-  document.documentElement.scrollTop = 0
-  // safari
-  window.pageYOffset = 0
-}
-
+// 回到顶部算法
 const cubic = value => Math.pow(value, 3)
 const easeInOutCubic = value => value < 0.5 ? cubic(value * 2) / 2 : 1 - cubic((1 - value) * 2) / 2
 // 滚动至页面顶部，使用 Element-ui 回到顶部 组件中的算法

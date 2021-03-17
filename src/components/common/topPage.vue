@@ -3,9 +3,6 @@
     <Login v-if="isShow" @logincb="loginCallBack" @closecb="logoutCallBack" />
     <div class="title">
       <ul>
-        <!-- <li class="logo">
-                  <img src="./assets/images/logo.png" alt="logo">
-                </li> -->
         <li
           v-for="(item, index) in navList"
           :key="index"
@@ -17,15 +14,15 @@
         </li>
       </ul>
       <div class="information-wrap">
-        <div class="search">
+        <!-- <div class="search">
           <input type="text" placeholder="请搜索" />
           <div class="search-btn">
             <i></i>
           </div>
-        </div>
+        </div> -->
         <span v-if="!isLogin" class="login" @click="loginClick">登录/注册</span>
         <div v-if="isLogin" class="content">
-          <div title="点击进入个人主页">
+          <div title="点击进入个人主页" @click="$router.push({path:'/PersonalCenter'})">
             <el-avatar class="information" :size="46" :src="circleUrl" />
           </div>
           <div class="logout" title="点击退出登录" @click="doLogOut">退出登录</div>

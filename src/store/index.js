@@ -6,8 +6,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     token: localStorage.getItem('token'),
-    userInfo: {},
-    remember: false
+    userInfo: {}
   },
   mutations: {
     // set
@@ -20,11 +19,8 @@ export default new Vuex.Store({
     removeToken(state) {
       state.token = ''
       localStorage.removeItem('token')
-    },
-    // 修改记住密码状态值
-    changeRememberStatus(state, status) {
-      state.remember = status
     }
+
   },
   actions: {
   },
