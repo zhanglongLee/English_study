@@ -11,6 +11,7 @@ suspect/
 *.sw*
 *.un~
 .vscode/
+.history
 dist
 learn
 tokens.json
