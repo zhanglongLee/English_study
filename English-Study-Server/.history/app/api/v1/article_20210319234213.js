@@ -1,0 +1,96 @@
+import { LinRouter } from 'lin-mizar';
+import { groupRequired } from '../../middleware/jwt';
+import { logger } from '../../middleware/logger';
+import { AddContentValidator, EditContentValidator, DeleteContentValidator } from '../../validator/content';
+import { AddArticleValidator } from '../../validator/article'
+import { ContentService } from '../../service/content';
+import { ArticleDao } from '../../dao/article'
+
+const contentApi = new LinRouter({
+  prefix: '/v1/article'
+});
+
+// 1. 权限控制（post => linPost）
+// 2. 行为日志（审计）添加logger 例如：logger("{user.username}新增期刊内容")
+
+/**
+ * 新增期刊内容
+ */
+contentApi.linPost(
+  'addArticle', // 唯一表示
+  '/', // URL
+  {
+    permission: '新增文章', // 权限的名字
+    module: '内容管理', // 权限属于哪个模块
+    mount: true // 是否在全局的权限列表中显示
+  },
+  groupRequired,
+  logger('{user.username}新增文章'), // logger，参数为日志内容
+  async ctx => {
+    // 1、校验参数
+    const v = await new AddArticleValidator().validate(ctx);
+    // 2、处理业务逻辑
+    // 3、存入数据库
+    // await ArticleDao.createArticle(v.get('body'));
+    console.log(v.get('body'))
+    // 4、返回成功
+    ctx.success({
+      message: '文章新增成功！'
+    });
+  });
+
+/**
+ * 查看期刊内容列表
+ */
+contentApi.get('/', async ctx => {
+  const contentList = await ContentService.getContentList();
+  ctx.json(contentList);
+});
+
+/**
+ * 编辑期刊内容
+ */
+contentApi.linPut(
+  'editContent', // 唯一表示
+  '/:id', // URL
+  {
+    permission: '修改期刊内容', // 权限的名字
+    module: '内容管理', // 权限属于哪个模块
+    mount: true // 是否在全局的权限列表中显示
+  },
+  groupRequired,
+  logger('{user.username}修改期刊内容'), // logger，参数为日志内容
+  async ctx => {
+    const v = await new EditContentValidator().validate(ctx);
+    const id = v.get('path.id');
+    const params = v.get('body');
+    await ContentService.editContent(id, params);
+    ctx.success({
+      message: '期刊内容修改成功！'
+    });
+  });
+
+/**
+ * 删除期刊内容
+ */
+contentApi.linDelete(
+  'deleteContent', // 唯一表示
+  '/:id', // URL
+  {
+    permission: '删除期刊内容', // 权限的名字
+    module: '内容管理', // 权限属于哪个模块
+    mount: true // 是否在全局的权限列表中显示
+  },
+  groupRequired,
+  logger('{user.username}删除期刊内容'), // logger，参数为日志内容
+  async ctx => {
+    const v = await new DeleteContentValidator().validate(ctx);
+    const id = v.get('path.id');
+    const type = v.get('query.type');
+    await ContentService.deleteContent(id, type);
+    ctx.success({
+      message: '期刊内容删除成功！'
+    });
+  });
+
+module.exports = { contentApi };
